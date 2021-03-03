@@ -196,9 +196,9 @@
       - restart tftp
     when: not staticips and not ppc64le
 
-  - name: generate netboot entry for grub2
-    shell: grub2-mknetdir --net-directory=/var/lib/tftpboot
-    when: not staticips and ppc64le
+#  - name: generate netboot entry for grub2
+#    shell: grub2-mknetdir --net-directory=/var/lib/tftpboot
+#    when: not staticips and ppc64le
 
   - name: Create TFTP RHCOS dir
     file:
