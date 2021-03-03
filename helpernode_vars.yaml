@@ -1,0 +1,67 @@
+---
+disk: vda
+helper:
+  name: "d601-bastion"
+  ipaddr: "129.40.252.1"
+dns:
+  domain: "cecc.ihost.com"
+  clusterid: "d601"
+  forwarder1: "129.40.242.1; 129.40.242.2"
+dhcp:
+  router: "129.40.252.14"
+  bcast: "129.40.252.15"
+  netmask: "255.255.255.240"
+  ipid: "129.40.252.0"
+  netmaskid: "255.255.255.240"
+  poolstart: "129.40.252.1"
+  poolend: "129.40.252.13"
+
+bootstrap:
+  name: "bootstrap"
+  ipaddr: "129.40.252.12"
+  macaddr: "fa:16:3e:00:83:f4"
+
+masters:
+  - name: "master-0"
+    ipaddr: "129.40.252.7"
+    macaddr: "fa:16:3e:4b:ea:cd"
+  - name: "master-1"
+    ipaddr: "129.40.252.10"
+    macaddr: "fa:16:3e:1c:7e:e3"
+  - name: "master-2"
+    ipaddr: "129.40.252.11"
+    macaddr: "fa:16:3e:8f:94:64"
+
+workers:
+  - name: "worker-0"
+    ipaddr: "129.40.252.4"
+    macaddr: "fa:16:3e:51:b9:af"
+  - name: "worker-1"
+    ipaddr: "129.40.252.3"
+    macaddr: "fa:16:3e:e4:8a:03"
+
+
+ppc64le: true
+ssh_gen_key: false
+
+
+
+chronyconfig:
+  enabled: true
+  content:
+    - server: 0.centos.pool.ntp.org
+      options: iburst
+    - server: 1.centos.pool.ntp.org
+      options: iburst
+    - server: "129.40.252.1"
+      options: iburst
+ocp_client: "https://mirror.openshift.com/pub/openshift-v4/s390x/clients/ocp/stable-4.6/openshift-client-linux.tar.gz"
+ocp_installer: "https://mirror.openshift.com/pub/openshift-v4/s390x/clients/ocp/stable-4.6/openshift-install-linux.tar.gz"
+
+# Pointing it to local files since it is not required atm
+ocp_bios: "file:///dev/null"
+ocp_initramfs: "file:///dev/null"
+ocp_install_kernel: "file:///dev/null"
+
+# This is required for latest helpernode. TODO: Remove when https://github.com/RedHatOfficial/ocp4-helpernode/pull/140 is merged
+helm_source: "https://get.helm.sh/helm-v3.4.0-linux-s390x.tar.gz"
