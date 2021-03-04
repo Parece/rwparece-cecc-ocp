@@ -96,12 +96,8 @@
     notify:
       - restart bind
 
-  - name: Write out haproxy config file
-    template:
-      src: ../templates/haproxy.cfg.j2
-      dest: /etc/haproxy/haproxy.cfg
-    notify:
-      - restart haproxy
+  - name: rwparece - moving ssl.conf so it gets ignored
+    command: mv /etc/httpd/conf.d/ssl.conf /etc/httpd/conf.d/bak.ssl_conf
 
   - name: Copy httpd conf file
     copy:
@@ -109,6 +105,13 @@
       dest: /etc/httpd/conf/httpd.conf
     notify:
       - restart httpd
+
+  - name: Write out haproxy config file
+    template:
+      src: ../templates/haproxy.cfg.j2
+      dest: /etc/haproxy/haproxy.cfg
+    notify:
+      - restart haproxy
 
   - name: Create apache directories for installing
     file:
