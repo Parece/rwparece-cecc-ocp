@@ -557,7 +557,7 @@
       group: root
       mode: '0755'
       remote_src: true
-    when: not ppc64le
+    when: amd64
 
   - name: Copy helm cli to bin directory for ppc64le
     copy:
