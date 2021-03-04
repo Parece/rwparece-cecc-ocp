@@ -37,7 +37,7 @@
     package:
       name: "{{ syslinuxpkgs }}"
       state: present
-    when: not staticips and not ppc64le
+    when: not staticips and not ppc64le and not s390x
 
   - name: Remove existing config files
     import_tasks: remove_old_config_files.yaml
@@ -194,7 +194,7 @@
       mode: 0755
     notify:
       - restart tftp
-    when: not staticips and not ppc64le
+    when: not staticips and not ppc64le and not s390x
 
 #  - name: generate netboot entry for grub2
 #    shell: grub2-mknetdir --net-directory=/var/lib/tftpboot
@@ -217,7 +217,7 @@
 
   - name: Copy over files needed for TFTP
     shell: "cp -a /usr/share/syslinux/* /var/lib/tftpboot"
-    when: not staticips and not ppc64le
+    when: not staticips and not ppc64le and not s390x
 
   - name: Downloading OCP4 installer initramfs
     get_url:
@@ -273,7 +273,7 @@
       when:
         - workers is defined
         - workers | length > 0
-    when: not staticips and not ppc64le
+    when: not staticips and not ppc64le and not s390x
 
   - name: Prepare UEFI netboot configuration
     block:
@@ -330,7 +330,7 @@
       when:
         - workers is defined
         - workers | length > 0
-    when: not staticips and not ppc64le and uefi
+    when: not staticips and not s390x and not ppc64le and uefi
 
   - name: Generate grub2 config files
     block:
