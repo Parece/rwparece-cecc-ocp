@@ -44,7 +44,7 @@ workers:
 ppc64le: false
 ssh_gen_key: false
 s390x: true
-
+amd64: false
 
 chronyconfig:
   enabled: true
