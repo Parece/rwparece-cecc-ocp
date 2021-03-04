@@ -569,6 +569,16 @@
       remote_src: true
     when: ppc64le
 
+  - name: Copy helm cli to bin directory for s390x
+    copy:
+      src: /usr/local/src/helm/linux-s390x/helm
+      dest: /usr/local/bin/helm
+      owner: root
+      group: root
+      mode: '0755'
+      remote_src: true
+    when: s390x
+
   - name: Downloading filetranspiler source
     git:
       repo: https://github.com/ashcrow/filetranspiler

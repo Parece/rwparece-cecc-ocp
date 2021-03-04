@@ -41,7 +41,7 @@ workers:
     macaddr: "fa:16:3e:e4:8a:03"
 
 
-ppc64le: true
+ppc64le: false
 ssh_gen_key: false
 
 
